@@ -1,0 +1,163 @@
+// create container div for chatbot
+var container = document.createElement("div");
+container.style.position = "fixed";
+container.style.zIndex = "99999"; // Set a high z-index to make it appear on top
+
+if (window.innerWidth > 600 && window.innerHeight > 700) {
+  container.style.bottom = "80px";
+  container.style.right = "20px";
+} else {
+  container.style.bottom = "0px";
+  container.style.right = "0px";
+}
+
+container.style.overflow = "hidden"; // hide any content that overflows the container
+container.style.zIndex = "99999";
+container.style.display = "none"; // make the chatbot start as closed
+container.style.transition = "all 0.05s ease"; // add a smooth transition to the container
+document.body.appendChild(container);
+
+// create chatbot iframe
+var iframe = document.createElement("iframe");
+iframe.src = `http://192.168.18.84:8000/`;
+iframe.style.width = "100%";
+iframe.style.height = "100%";
+iframe.style.border = "none";
+iframe.style.transition = "all 0.05s ease"; // add a smooth transition to the iframe
+
+// Set global attributes
+iframe.setAttribute("id", window.username);
+iframe.setAttribute("title", "Arsturn Chatbot Widget");
+
+container.appendChild(iframe);
+
+if (window.innerWidth > 600 && window.innerHeight > 700) {
+  container.style.width = "400px";
+  container.style.height = "700px";
+  container.style.borderRadius = "25px";
+  iframe.style.borderRadius = "25px"; // make the borders of the chatbot iframe round
+} else {
+  container.style.width = "100%";
+  container.style.height = "100%";
+  container.style.borderRadius = "0px";
+  iframe.style.borderRadius = "0px"; // make the borders of the chatbot iframe round
+}
+
+// create button to toggle chatbot visibility
+var button = document.createElement("button");
+button.style.position = "fixed";
+button.style.bottom = "20px";
+button.style.right = "20px";
+button.style.width = "50px";
+button.style.height = "50px";
+button.style.borderRadius = "50%";
+button.style.border = "none";
+button.style.fontSize = "20px";
+button.style.backgroundColor = window.widgetButtonBackgroundColor;
+button.style.backgroundSize = "cover";
+button.style.backgroundImage = "url('https://www.arsturn.com/chat.svg')";
+// ... (other button styles)
+button.style.backgroundSize = "25px 25px";
+button.style.backgroundRepeat = "no-repeat"; // add this line to prevent repeating the background
+button.style.backgroundPosition = "center"; // add this line to center the background
+
+button.style.zIndex = "99999";
+button.style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0.1)"; // add a slight shadow to the button
+button.style.transition = "transform 0.2s ease"; // add a smooth transition on transform
+button.style.display = "flex";
+button.style.justifyContent = "center";
+button.style.alignItems = "center"; // center the content inside the button
+button.style.padding = "0";
+button.style.margin = "0";
+
+// Create a link element
+var link = document.createElement("a");
+link.href = "https://www.arsturn.com"; // Set the href attribute to arsturn.com
+link.style.textDecoration = "none"; // Remove underline styling
+// Append the button to the link element
+container.appendChild(link);
+
+button.onmouseover = function () {
+  button.style.transform = "scale(1.15)"; // scale the button up on hover
+};
+button.onmouseout = function () {
+  button.style.transform = "scale(1)"; // return the button to its original size on mouse out
+};
+
+if (window.open == true) {
+  container.style.display = "block";
+  container.style.width = "0px";
+  container.style.height = "0px";
+  container.style.transition = "all 0.2s ease"; // add a smooth transition to the container
+  iframe.style.opacity = "1"; // make the iframe visible during the transition
+  setTimeout(function () {
+    if (window.innerWidth > 600 && window.innerHeight > 700) {
+      container.style.width = "400px";
+      container.style.height = "700px";
+      container.style.borderRadius = "25px";
+      iframe.style.borderRadius = "25px"; // make the borders of the chatbot iframe round
+    } else {
+      container.style.width = "100%";
+      container.style.height = "100%";
+      container.style.borderRadius = "0px";
+      iframe.style.borderRadius = "0px"; // make the borders of the chatbot iframe round
+    }
+
+    button.style.backgroundImage =
+      "url('https://www.arsturn.com/expand-arrow.svg')";
+
+    // Scale the button back to its original size after expanding the container
+    button.style.transform = "scale(1.15)";
+  }, 200); // wait 50 milliseconds before expanding the container
+}
+
+button.onclick = function () {
+  // Shrink the button on click
+  button.style.transform = "scale(0.9)";
+
+  if (container.style.display === "none") {
+    container.style.display = "block";
+    container.style.width = "0px";
+    container.style.height = "0px";
+    container.style.transition = "all 0.2s ease"; // add a smooth transition to the container
+    iframe.style.opacity = "1"; // make the iframe visible during the transition
+    setTimeout(function () {
+      if (window.innerWidth > 600 && window.innerHeight > 700) {
+        container.style.width = "400px";
+        container.style.height = "700px";
+        container.style.borderRadius = "25px";
+        iframe.style.borderRadius = "25px"; // make the borders of the chatbot iframe round
+      } else {
+        container.style.width = "100%";
+        container.style.height = "100%";
+        container.style.borderRadius = "0px";
+        iframe.style.borderRadius = "0px"; // make the borders of the chatbot iframe round
+      }
+
+      button.style.backgroundImage =
+        "url('https://www.arsturn.com/expand-arrow.svg')";
+
+      // Scale the button back to its original size after expanding the container
+      button.style.transform = "scale(1.15)";
+    }, 200); // wait 50 milliseconds before expanding the container
+  } else {
+    container.style.width = "0px";
+    container.style.height = "0px";
+    container.style.transition = "all 0.2s ease"; // add a smooth transition to the container
+
+    setTimeout(function () {
+      container.style.display = "none";
+      iframe.style.opacity = "0"; // make the iframe invisible during the transition
+
+      button.style.backgroundImage = "url('https://www.arsturn.com/chat.svg')";
+      // Scale the button back to its original size after collapsing the container
+      button.style.transform = "scale(1.15)";
+    }, 200); // wait 200 milliseconds before hiding the container
+  }
+};
+
+document.body.appendChild(button);
+
+// adjust the position of the chatbot iframe to not overlap with the button
+var chatbotRect = iframe.getBoundingClientRect();
+iframe.style.top = `${-(chatbotRect.height + button.clientHeight + 20)}px`;
